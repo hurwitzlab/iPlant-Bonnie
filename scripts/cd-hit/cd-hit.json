@@ -1,223 +1,181 @@
 {
-      "id": "cd-hit-4.6.1",
-      "name": "cd-hit",
-      "parallelism": "SERIAL",
-      "version": "4.6.1",
-      "public": false,
-      "helpURI": "https://pods.iplantcollaborative.org/wiki/display/DEapps/Newbler",
-      "label": "cd-hit 4.6.1",
-      "shortDescription": "cd-hit",
-      "longDescription": "cd-hit",
-      "tags": [
-        "454",
-        "Test"
-      ],
-      "ontology": [
-        "http://sswapmeet.sswap.info/sequenceServices/SequenceServices"
-      ],
-      "executionType": "HPC",
-      "executionHost": "stampede.tacc.xsede.org",
-      "deploymentPath": "/ipcservices/applications/newbler-2.6.0u1.zip",
-      "templatePath": "foundation-cd-hit.sh",
-      "testPath": "test/foundation-cd-hit.sh",
-      "checkpointable": true,
-      "modules": [
-        "purge",
-        "load TACC",
-        "load irods"
-      ],
-      "available": true,
-      "inputs": [
-        {
-          "id": "inputSeqs",
-          "defaultValue": "",
-          "value": {
-            "validator": "",
-            "default": "",
-            "visible": true,
-            "required": true
-          },
-          "details": {
-            "label": "Sequences:",
-            "description": "Sequence file in fasta format",
-            "visible": true
-          },
-          "semantics": {
-            "minCardinality": 1,
-            "ontology": [
-              "http://sswapmeet.sswap.info/sequence/FASTA"
-            ],
-            "fileTypes": [
-              "fasta-0"
-            ]
-          }
-        }
-      ],
-      "parameters": [
-        {
-          "id": "outputName",
-          "defaultValue": "",
-          "value": {
-            "validator": "",
-            "visible": true,
-            "required": true,
-            "type": "string",
-            "default": ""
-          },
-          "details": {
-            "label": "output file",
-            "description": "output file."
-          },
-          "semantics": {
-            "minCardinality": 1,
-            "ontology": [
-              "http://sswapmeet.sswap.info/sequence/FASTA"
-            ],
-            "fileTypes": [
-              "fasta-0"
-            ]
-          }
-        },
-        {
-          "id": "idThreshold",
-          "defaultValue": "0.6",
-          "value": {
-            "validator": "",
-            "visible": true,
-            "required": true,
-            "type": "string",
-            "default": "0.6"
-          },
-          "details": {
-            "label": "id threshold",
-            "description": "id threshold"
-          },
-          "semantics": {
-            "ontology": [
-              "xs:string"
-            ]
-          }
-        },
-        {
-          "id": "alignCover",
-          "defaultValue": "0.8",
-          "value": {
-            "validator": "",
-            "visible": true,
-            "required": false,
-            "type": "string",
-            "default": "0.8"
-          },
-          "details": {
-            "label": "alignment coverage",
-            "description": "Alignment coverage."
-          },
-          "semantics": {
-            "ontology": [
-              "xs:string"
-            ]
-          }
-        },
-        {
-          "id": "algorithim",
-          "defaultValue": "1",
-          "value": {
-            "validator": "",
-            "visible": true,
-            "required": false,
-            "type": "string",
-            "default": "1"
-          },
-          "details": {
-            "label": "algorithim",
-            "description": "algorithim"
-          },
-          "semantics": {
-            "ontology": [
-              "xs:string"
-            ]
-          }
-        },
-        {
-          "id": "wordLength",
-          "defaultValue": "4",
-          "value": {
-            "validator": "",
-            "visible": true,
-            "required": false,
-            "type": "string",
-            "default": "4"
-          },
-          "details": {
-            "label": "word length",
-            "description": "word length"
-          },
-          "semantics": {
-            "ontology": [
-              "xs:string"
-            ]
-          }
-        },
-        {
-          "id": "descLength",
-          "defaultValue": "0",
-          "value": {
-            "validator": "",
-            "visible": true,
-            "required": false,
-            "type": "string",
-            "default": "0"
-          },
-          "details": {
-            "label": "word length",
-            "description": "word length"
-          },
-          "semantics": {
-            "ontology": [
-              "xs:string"
-            ]
-          }
-        },
-        {
-          "id": "threads",
-          "defaultValue": "24",
-          "value": {
-            "validator": "",
-            "visible": true,
-            "required": false,
-            "type": "string",
-            "default": "24"
-          },
-          "details": {
-            "label": "threads",
-            "description": "threads"
-          },
-          "semantics": {
-            "ontology": [
-              "xs:string"
-            ]
-          }
-        },
-        {
-          "id": "memoryLimit",
-          "defaultValue": "45000",
-          "value": {
-            "validator": "",
-            "visible": true,
-            "required": false,
-            "type": "string",
-            "default": "45000"
-          },
-          "details": {
-            "label": "Memory limit",
-            "description": "Memory limit"
-          },
-          "semantics": {
-            "ontology": [
-              "xs:string"
-            ]
-          }
-        }
-      ],
-      "outputs": []
+	"id": "cd-hit-4.6.1",
+	"name": "cd-hit",
+	"parallelism": "SERIAL",
+	"version": "4.6.1",
+	"public": false,
+	"helpURI": "https://pods.iplantcollaborative.org/wiki",
+	"label": "cd-hit 4.6.1",
+	"shortDescription": "cd-hit",
+	"longDescription": "cd-hit",
+	"tags": ["454", "Test"],
+	"ontology": ["http://sswapmeet.sswap.info/sequenceServices/SequenceServices"],
+	"executionType": "HPC",
+	"executionHost": "stampede.tacc.xsede.org",
+	"deploymentPath": "/iplant/home/dboss/cd-hit-4.6.1/",
+	"templatePath": "foundation-cd-hit.sh",
+	"testPath": "test/foundation-cd-hit.sh",
+	"checkpointable": true,
+	"modules": ["purge", "load TACC", "load irods"],
+	"available": true,
+	"inputs": [{
+		"id": "inputSeqs",
+		"defaultValue": "",
+		"value": {
+			"validator": "",
+			"default": "",
+			"visible": true,
+			"required": true
+		},
+		"details": {
+			"label": "Sequences:",
+			"description": "Sequence file in fasta format",
+			"visible": true
+		},
+		"semantics": {
+			"minCardinality": 1,
+			"ontology": ["http://sswapmeet.sswap.info/sequence/FASTA"],
+			"fileTypes": ["fasta-0"]
+		}
+	}],
+	"parameters": [{
+		"id": "outputName",
+		"defaultValue": "",
+		"value": {
+			"validator": "",
+			"visible": true,
+			"required": true,
+			"type": "string",
+			"default": ""
+		},
+		"details": {
+			"label": "output file",
+			"description": "output file."
+		},
+		"semantics": {
+			"minCardinality": 1,
+			"ontology": ["http://sswapmeet.sswap.info/sequence/FASTA"],
+			"fileTypes": ["fasta-0"]
+		}
+	}, {
+		"id": "idThreshold",
+		"defaultValue": "0.6",
+		"value": {
+			"validator": "",
+			"visible": true,
+			"required": true,
+			"type": "string",
+			"default": "0.6"
+		},
+		"details": {
+			"label": "id threshold",
+			"description": "id threshold"
+		},
+		"semantics": {
+			"ontology": ["xs:string"]
+		}
+	}, {
+		"id": "alignCover",
+		"defaultValue": "0.8",
+		"value": {
+			"validator": "",
+			"visible": true,
+			"required": false,
+			"type": "string",
+			"default": "0.8"
+		},
+		"details": {
+			"label": "alignment coverage",
+			"description": "Alignment coverage."
+		},
+		"semantics": {
+			"ontology": ["xs:string"]
+		}
+	}, {
+		"id": "algorithim",
+		"defaultValue": "1",
+		"value": {
+			"validator": "",
+			"visible": true,
+			"required": false,
+			"type": "string",
+			"default": "1"
+		},
+		"details": {
+			"label": "algorithim",
+			"description": "algorithim"
+		},
+		"semantics": {
+			"ontology": ["xs:string"]
+		}
+	}, {
+		"id": "wordLength",
+		"defaultValue": "4",
+		"value": {
+			"validator": "",
+			"visible": true,
+			"required": false,
+			"type": "string",
+			"default": "4"
+		},
+		"details": {
+			"label": "word length",
+			"description": "word length"
+		},
+		"semantics": {
+			"ontology": ["xs:string"]
+		}
+	}, {
+		"id": "descLength",
+		"defaultValue": "0",
+		"value": {
+			"validator": "",
+			"visible": true,
+			"required": false,
+			"type": "string",
+			"default": "0"
+		},
+		"details": {
+			"label": "word length",
+			"description": "word length"
+		},
+		"semantics": {
+			"ontology": ["xs:string"]
+		}
+	}, {
+		"id": "threads",
+		"defaultValue": "24",
+		"value": {
+			"validator": "",
+			"visible": true,
+			"required": false,
+			"type": "string",
+			"default": "24"
+		},
+		"details": {
+			"label": "threads",
+			"description": "threads"
+		},
+		"semantics": {
+			"ontology": ["xs:string"]
+		}
+	}, {
+		"id": "memoryLimit",
+		"defaultValue": "45000",
+		"value": {
+			"validator": "",
+			"visible": true,
+			"required": false,
+			"type": "string",
+			"default": "45000"
+		},
+		"details": {
+			"label": "Memory limit",
+			"description": "Memory limit"
+		},
+		"semantics": {
+			"ontology": ["xs:string"]
+		}
+	}],
+	"outputs": []
 }
