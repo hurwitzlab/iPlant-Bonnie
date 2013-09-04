@@ -3,7 +3,7 @@
 	"name": "cd-hit-2d",
 	"parallelism": "SERIAL",
 	"version": "4.6.1",
-	"public": false,
+	"public": true,
 	"helpURI": "https://pods.iplantcollaborative.org/wiki",
 	"label": "cd-hit-2d 4.6.1",
 	"shortDescription": "cd-hit-2d",
