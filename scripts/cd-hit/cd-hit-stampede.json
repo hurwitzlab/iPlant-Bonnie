@@ -3,7 +3,7 @@
 	"name": "cd-hit",
 	"parallelism": "SERIAL",
 	"version": "4.6.1",
-	"public": false,
+	"public": true,
 	"helpURI": "https://pods.iplantcollaborative.org/wiki",
 	"label": "cd-hit 4.6.1",
 	"shortDescription": "cd-hit",
@@ -28,8 +28,8 @@
 			"required": true
 		},
 		"details": {
-			"label": "Sequences:",
-			"description": "Sequence file in fasta format",
+			"label": "Input filename",
+			"description": "Input filename in fasta format.",
 			"visible": true
 		},
 		"semantics": {
@@ -49,13 +49,30 @@
 			"default": ""
 		},
 		"details": {
-			"label": "output file",
-			"description": "output file."
+			"label": "Output filename",
+			"description": "Output filename"
 		},
 		"semantics": {
 			"minCardinality": 1,
 			"ontology": ["http://sswapmeet.sswap.info/sequence/FASTA"],
 			"fileTypes": ["fasta-0"]
+		}
+	}, {
+		"id": "globalSeqId",
+		"defaultValue": "1",
+		"value": {
+			"validator": "",
+			"visible": true,
+			"required": false,
+			"type": "string",
+			"default": "1"
+		},
+		"details": {
+			"label": "Global id",
+			"description": "Use global sequence identity. If set to 0, then use local sequence identity, calculated as: number of identical amino acids in alignment."
+		},
+		"semantics": {
+			"ontology": ["xs:string"]
 		}
 	}, {
 		"id": "idThreshold",
@@ -64,6 +81,23 @@
 			"validator": "",
 			"visible": true,
 			"required": true,
+			"type": "string",
+			"default": "0.6"
+		},
+		"details": {
+			"label": "Sequence identity threshold",
+			"description": "Sequence identity threshold. This is the default cdhit's 'global sequence identity' calculated as: number of identical amino acids in alignment."
+		},
+		"semantics": {
+			"ontology": ["xs:string"]
+		}
+	}, {
+		"id": "bandwidth",
+		"defaultValue": "20",
+		"value": {
+			"validator": "",
+			"visible": true,
+			"required": false,
 			"type": "string",
 			"default": "0.6"
 		},
