@@ -2,21 +2,14 @@
 
 import argparse
 import os
-#import shutil
 from Bio import SeqIO
 import glob
 
 
-def split_fasta(infile, files_wanted, total_sequences):
-    #seq_per_file = (total_sequences / files_wanted) + r
-    #for record in SeqIO.parse(infile, 'fasta'):
-    #    print record.id
-    #infile.close()
+def split_fasta(infile, files_wanted, total_sequences, file_counter):
     seq_per_file = (total_sequences / files_wanted) + 1
-    print seq_per_file
     current_seq_count = 0
     total_seq_count = 0
-    file_counter = 1
     outfile = open(outdir + '/query' + str(file_counter), 'w')
     for record in SeqIO.parse(infile, 'fasta'):
         current_seq_count += 1
@@ -29,7 +22,7 @@ def split_fasta(infile, files_wanted, total_sequences):
             file_counter += 1
             outfile.close()
             outfile = open(outdir + '/query' + str(file_counter), 'w')
-            print total_seq_count
+    return file_counter
 
 parser = argparse.ArgumentParser(description='Split fasta file into \
                                               smaller pieces')
@@ -45,17 +38,21 @@ if args.j:
     jobs = args.j
 else:
     jobs = 500
-fasta = open(outdir + '/all_seqs', 'w+')
 orig_dir = os.getcwd()
-total_sequences = 0
+file_counter = 1
 for f in glob.glob(indir + '/*.fa'):
-    infile = open(f, 'r')
+    fasta = open(outdir + '/all_seqs', 'w+')
+    total_sequences = 0
+    infile = open(f, 'rU')
     for line in infile:
         if line.startswith('>'):
             total_sequences += 1
         fasta.write(line)
+    print total_sequences
+    fasta.seek(0)
+    file_counter = split_fasta(fasta, jobs, total_sequences, file_counter)
+    print file_counter
+    fasta.close()
+    os.remove(outdir + '/all_seqs')
     infile.close()
-fasta.close()
-print total_sequences
-infile = open(outdir + '/all_seqs', 'rU')
-split_fasta(infile, jobs, total_sequences)
+print "All done."
