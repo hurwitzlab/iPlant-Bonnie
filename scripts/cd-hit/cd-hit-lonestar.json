@@ -1,6 +1,6 @@
 {
-	"id": "cd-hit-lonestar-4.6.1",
-	"name": "cd-hit",
+	"id": "lonestar-cd-hit-4.6.1",
+	"name": "cd-hit-lonestar",
 	"parallelism": "SERIAL",
 	"version": "4.6.1",
 	"public": true,
