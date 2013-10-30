@@ -1,0 +1,183 @@
+{
+    "ontolog": [
+        "http://sswapmeet.sswap.info/agave/apps/Application", 
+        "http://sswapmeet.sswap.info/sequenceServices/BLASTX"
+    ], 
+    "label": "BLASTX", 
+    "shortDescription": "High-throughput BLASTX on TACC Stampede", 
+    "id": "blastx-stampede-ncbi-db-2.2.26u3", 
+    "parameters": [
+        {
+            "defaultValue": "", 
+            "semantics": {
+                "ontology": [
+                    "xs:integer"
+                ]
+            }, 
+            "id": "max_target_seqs", 
+            "value": {
+                "default": "", 
+                "visible": true, 
+                "validator": "\\d++", 
+                "type": "number", 
+                "required": false
+            }, 
+            "details": {
+                "description": "Replaces functionality of num_descriptions and num_alignments", 
+                "label": "Maximum number of aligned sequences to keep"
+            }
+        }, 
+        {
+            "defaultValue": "0", 
+            "semantics": {
+                "ontology": [
+                    "xs:integer"
+                ]
+            }, 
+            "id": "outfmt", 
+            "value": {
+                "default": "0", 
+                "visible": true, 
+                "validator": "", 
+                "type": "number", 
+                "required": false
+            }, 
+            "details": {
+                "description": "", 
+                "label": "Alignment output format"
+            }
+        }, 
+        {
+            "defaultValue": "nr", 
+            "semantics": {
+                "ontology": [
+                    "xs:string"
+                ]
+            }, 
+            "id": "db", 
+            "value": {
+                "default": "nr", 
+                "visible": true, 
+                "validator": "nr|refseq_protein", 
+                "type": "string", 
+                "required": true
+            }, 
+            "details": {
+                "description": "Source: ftp://ftp.ncbi.nih.gov/blast/db", 
+                "label": "NCBI database name"
+            }
+        }, 
+        {
+            "defaultValue": "0.0010", 
+            "semantics": {
+                "ontology": [
+                    "xs:float"
+                ]
+            }, 
+            "id": "evalue", 
+            "value": {
+                "default": "0.0010", 
+                "visible": true, 
+                "validator": "", 
+                "type": "number", 
+                "required": false
+            }, 
+            "details": {
+                "description": "", 
+                "label": "Minimum e-value for result"
+            }
+        }, 
+        {
+            "defaultValue": "BLOSUM62", 
+            "semantics": {
+                "ontology": [
+                    "xs:string"
+                ]
+            }, 
+            "id": "matrix", 
+            "value": {
+                "default": "BLOSUM62", 
+                "visible": true, 
+                "validator": "BLOSUM45|BLOSUM62|BLOSUM80|PAM30|PAM70", 
+                "type": "string", 
+                "required": false
+            }, 
+            "details": {
+                "description": "", 
+                "label": "Scoring matrix name"
+            }
+        }
+    ], 
+    "executionHost": "stampede.tacc.xsede.org", 
+    "version": "2.2.26", 
+    "public": true, 
+    "revision": 3, 
+    "available": true, 
+    "inputs": [
+        {
+            "defaultValue": "", 
+            "semantics": {
+                "minCardinality": 1, 
+                "ontology": [
+                    "http://sswapmeet.sswap.info/mime/text/X-multiFasta"
+                ], 
+                "fileTypes": [
+                    "fasta-0"
+                ]
+            }, 
+            "id": "query", 
+            "value": {
+                "default": "", 
+                "visible": true, 
+                "validator": "", 
+                "required": true
+            }, 
+            "details": {
+                "visible": true, 
+                "description": "", 
+                "label": "Multi-FASTA file containing BLAST queries"
+            }
+        }
+    ], 
+    "tags": [
+        ""
+    ], 
+    "outputs": [
+        {
+            "defaultValue": "blast_out.tbz2", 
+            "semantics": {
+                "fileTypes": [
+                    ""
+                ], 
+                "minCardinality": 1, 
+                "ontology": [
+                    "http://sswapmeet.sswap.info/mime/application/X-bzip2"
+                ], 
+                "maxCardinality": 1
+            }, 
+            "id": "blastReportArchive", 
+            "value": {
+                "default": "blast_out.tbz2", 
+                "validator": "blast_out.tbz2"
+            }, 
+            "details": {
+                "description": "Be careful expanding this, as there may be a lot of files if you submitted a query with a lot of sequences.", 
+                "label": "Tarred, bzipped directory of BLASTX results files"
+            }
+        }
+    ], 
+    "longDescription": "Intended for metagenome analysis or post-assembly contig annotation. Uses iPlant-maintained NCBI database mirror.", 
+    "testPath": "blastx_test.sge", 
+    "deploymentPath": "/ipcservices/applications/blastx-stampede-ncbi-db-2.2.26u3.zip", 
+    "templatePath": "blastx.sge", 
+    "name": "blastx-stampede-ncbi-db", 
+    "checkpointable": false, 
+    "modules": [
+        "purge", 
+        "load TACC", 
+        "load launcher"
+    ], 
+    "executionType": "HPC", 
+    "parallelism": "PARALLEL", 
+    "helpURI": "http://blast.ncbi.nlm.nih.gov/"
+}

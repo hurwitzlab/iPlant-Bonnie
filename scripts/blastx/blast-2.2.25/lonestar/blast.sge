@@ -1,0 +1,24 @@
+#input 
+INPUT=${inputSeqs}
+#blastdbs
+BLASTDBS=${blastdbs}
+PROCESSORS=${processors}
+TYPE=${type}
+OUTPUT=${output}
+DESCRIPTIONS=${descriptions}
+ALN=${aln}
+EVAL=${eval}
+
+# Unpack the bin.tgz file containing samtools binaries
+# If you are relying entirely on system-supplied binaries or the modules
+# system, you don't need this bit.
+tar -xvf bin.tgz
+
+# Fetch data from iPlant Data Store
+iget -fT ${INPUT}
+INPUT_F=$(basename ${INPUT})
+export BLASTDB=$(dirname ${BLASTDBS})
+bin/blastall -a $PROCESSORS -p $TYPE -i $INPUT_F -o $OUTPUT -v $DESCRIPTIONS -b $ALN -d $BLASTDBS -e $EVAL
+
+# Now, delete the bin/ directory
+rm -rf bin

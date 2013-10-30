@@ -1,0 +1,166 @@
+{
+	"id": "lonestar-blast-2.2.25",
+	"name": "blast-lonestar",
+	"parallelism": "PARALLEL",
+	"version": "2.2.25",
+	"public": true,
+	"helpURI": "http://blast.ncbi.nlm.nih.gov",
+	"label": "BLASTX",
+	"shortDescription": "BLASTX on TACC Lonestar",
+	"longDescription": "Intended for iMicrobe pipeline usage. Uses iMicrobe-maintained SIMAP database mirror.",
+	"tags": [""],
+	"ontolog": [
+	        "http://sswapmeet.sswap.info/sequenceServices/BLASTX",
+		"http://sswapmeet.sswap.info/sequenceServices/SequenceServices"
+	],
+	"executionType": "HPC",
+	"executionHost": "lonestar4.tacc.teragrid.org",
+	"deploymentPath": "/iplant/home/dboss/applications/blast-2.2.25/lonestar",
+	"templatePath": "blast.sge",
+	"testPath": "test-blast.sh",
+	"checkpointable": false,
+	"modules": ["purge", "load TACC", "load iRODS"],
+	"available": true,
+	"inputs": [{
+		"id": "inputSeqs",
+		"defaultValue": "",
+		"value": {
+			"validator": "",
+			"default": "",
+			"visible": true,
+			"required": true
+		},
+		"details": {
+			"label": "Input filename",
+			"description": "Multi-FASTA file containing BLAST queries",
+			"visible": true
+		},
+		"semantics": {
+			"minCardinality": 1,
+			"ontology": ["http://sswapmeet.sswap.info/mime/text/X-multiFasta"],
+			"fileTypes": ["fasta-0"]
+		}
+	}],
+	"parameters": [{
+		"id": "blastdbs",
+		"defaultValue": "/scratch/projects/tacc/iplant/SIMAP/fileshare.csb.univie.ac.at/simap/sequences.fa",
+		"value": {
+			"validator": "/scratch/projects/tacc/iplant/SIMAP/fileshare.csb.univie.ac.at/simap/sequences.fa",
+			"visible": true,
+			"required": true,
+			"type": "string",
+			"default": "scratch/projects/tacc/iplant/SIMAP/fileshare.csb.univie.ac.at/simap/sequences.fa"
+		},
+		"details": {
+			"label": "Blast databases",
+			"description": "Database to blast against"
+		},
+		"semantics": {
+			"ontology": ["xs:string"]
+		}
+	}, {
+		"id": "processors",
+		"defaultValue": "12",
+		"value": {
+			"validator": "",
+			"visible": true,
+			"required": false,
+			"type": "number",
+			"default": "12"
+		},
+		"details": {
+			"label": "Processors",
+			"description": "Number of processors to use."
+		},
+		"semantics": {
+			"ontology": ["xs:integer"]
+		}
+	}, {
+		"id": "type",
+		"defaultValue": "blastx",
+		"value": {
+			"validator": "blastx",
+			"visible": true,
+			"required": true,
+			"type": "string",
+			"default": "blastx"
+		},
+		"details": {
+			"label": "Type",
+			"description": "Type of blast search."
+		},
+		"semantics": {
+			"ontology": ["xs:string"]
+		}
+	}, {
+		"id": "descriptions",
+		"defaultValue": "10",
+		"value": {
+			"validator": "",
+			"visible": true,
+			"required": false,
+			"type": "number",
+			"default": "10"
+		},
+		"details": {
+			"label": "Descriptions",
+			"description": "Descriptions"
+		},
+		"semantics": {
+			"ontology": ["xs:integer"]
+		}
+	}, {
+		"id": "aln",
+		"defaultValue": "10",
+		"value": {
+			"validator": "",
+			"visible": true,
+			"required": false,
+			"type": "number",
+			"default": "10"
+		},
+		"details": {
+			"label": "Aln",
+			"description": "Aln."
+		},
+		"semantics": {
+			"ontology": ["xs:integer"]
+		}
+	}, {
+		"id": "eval",
+		"defaultValue": "1e-3",
+		"value": {
+			"validator": "",
+			"visible": true,
+			"required": false,
+			"type": "string",
+			"default": "1"
+		},
+		"details": {
+			"label": "Eval",
+			"description": "Eval"
+		},
+		"semantics": {
+			"ontology": ["xs:string"]
+		}
+	}, {
+		"id": "output",
+		"defaultValue": "output",
+		"value": {
+			"validator": "",
+			"visible": true,
+			"required": true,
+			"type": "string",
+			"default": "blastout.0"
+		},
+		"details": {
+			"label": "Blast output",
+			"description": "Blast output"
+		},
+		"semantics": {
+			"ontology": ["xs:string"]
+		}
+	}
+	]
+}
+
