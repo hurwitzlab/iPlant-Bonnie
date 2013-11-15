@@ -1,49 +1,36 @@
 #!/usr/bin/env python
 
 import argparse
-import sys
 from subprocess import call
-import os.path
+import os
 
 
 def main():
     parser = argparse.ArgumentParser()
-
     parser.add_argument("--appid", required=True,
                         help="appID for the calling app")
-    #parser.add_argument("args", nargs=argparse.REMAINDER)
-
     namespace, args1 = parser.parse_known_args()
-
     appid = namespace.appid
-
     # securiy check so that user can not execute randon command by providing
     # as appid
-    if appid.startswith("imicrobe") is False:
+    if appid.startswith("/usr/local/bin/imicrobe") is False:
         raise argparse.ArgumentTypeError("only appid starting with imicrobe\
                                          can be executed")
 
     # generate argument string
-    iplant_cmd = open('iplant.cmd', 'r')
-    for line in iplant_cmd:
-        if line.startswith('+IpcUsername'):
-            iplant_user = line.split('"')[1::2][0]
-        if line.startswith('output'):
-            iplant_output = line.split()[2]
-            iplant_archive = iplant_output.split('/')[4]
-    param = ' --ipuser ' + iplant_user
-    param = param + ' --ipoutput ' + iplant_archive
+    cwd = os.environ['PWD']
+    iplant_archive = cwd.split('/')[6]
+    param = ' --ipoutput ' + iplant_archive
     for item in args1:
         param = param+" "+item
 
-    paramStr = str(args1)
     print('Appid is ' + appid)
     print('iplant_archive is ' + iplant_archive)
     print(param)
     # we can create executable of child python script and place in bin,
     # use of "./" is temporary to test script
     #call("/usr/local/bin/"+appid+param, shell=True)
-    call("./"+appid+param, shell=True)
+    call(appid+param, shell=True)
 
 if __name__ == "__main__":
     main()
