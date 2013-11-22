@@ -15,6 +15,9 @@ from foundation import FoundationApi, FoundationJob, RegularQueue
 import shutil
 import subprocess
 
+BLASTDBS = '/scratch/projects/tacc/iplant/SIMAP/fileshare.csb.univie.ac.at/' \
+           'simap/sequences.fa'
+
 
 def split_fasta(infile, outdir, files_wanted, total_sequences, file_counter):
     """
@@ -41,23 +44,24 @@ def split_fasta(infile, outdir, files_wanted, total_sequences, file_counter):
 def upload_split_fasta(path, outdir):
     env = os.environ.copy()
     env['irodsEnvFile'] = '/var/lib/condor/.irods/.irodsEnv.imicrobe'
-    retcode = call('/usr/local/icommands/iput -r ' + outdir +
-                   ' /iplant/home/imicrobe/scratch/' +
-                   path, shell=True, env=env)
+    call('/usr/local/icommands/iput -r ' + outdir +
+         ' /iplant/home/imicrobe/scratch/' + path, shell=True, env=env)
 
 
 def download_job_output(path, outdir):
     env = os.environ.copy()
     env['irodsEnvFile'] = '/var/lib/condor/.irods/.irodsEnv.imicrobe'
-    retcode = call('/usr/local/icommands/iget -r /iplant/home' + path + ' '
-                   + outdir, shell=True, env=env)
+    call('/usr/local/icommands/iget -r /iplant/home' + path + ' '
+         + outdir, shell=True, env=env)
 
 
 def main():
+    # Parse the command line arguments
     parser = argparse.ArgumentParser(description='Split fasta file into \
                                                   smaller pieces')
     parser.add_argument('indir', help='Input directory')
     parser.add_argument('-j', type=int, help='Number of jobs')
+    # Gets passed from DE -> imicrobe_adaptor -> this script
     parser.add_argument('--ipoutput', required=True,
                         help='iPlant archive directory')
     args = parser.parse_args()
@@ -92,8 +96,7 @@ def main():
     upload_split_fasta(args.ipoutput, outdir)
     counter = 0
     jobs = []
-    finished_jobs = []
-    failed_jobs = []
+    # create a job queue that submits and monitors fapi jobs
     queue = RegularQueue.RegularQueue(fapi, interval=10, failures=1,
                                       verbose=True)
     for filename in os.listdir(outdir):
@@ -101,7 +104,7 @@ def main():
                   filename}
         parameters = {'output': 'blastout.' + str(counter),
                       'processorCount': 12,
-                      'blastdbs': '/scratch/projects/tacc/iplant/SIMAP/fileshare.csb.univie.ac.at/simap/sequences.fa',
+                      'blastdbs': BLASTDBS,
                       'type': 'blastx', 'descriptions': '10',
                       'eval': '1', 'aln': '10',
                       'requestedTime': '03:00:00',
@@ -126,6 +129,7 @@ def main():
     parseout = 'parse-out'
     tophitout = 'tophit-out'
     finalout = 'final-out'
+    # Copy all blastout.* files into one directory
     for blastdir in os.listdir(jobsout):
         output_folder = blastdir
         dirname = jobsout + '/' + output_folder
