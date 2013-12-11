@@ -14,6 +14,7 @@ import glob
 from foundation import FoundationApi, FoundationJob, RegularQueue
 import shutil
 import subprocess
+import FeatureApi
 
 BLASTDBS = '/scratch/projects/tacc/iplant/SIMAP/fileshare.csb.univie.ac.at/' \
            'simap/sequences.fa'
@@ -160,7 +161,8 @@ def main():
         os.mkdir(finalout)
     s = subprocess.Popen(['/usr/local/bin/imicrobe_compile.pl', tophitout,
                          finalout + '/all_tophit'], stdout=subprocess.PIPE)
-
+    api = FeatureApi.FeatureApi()
+    api.feature_annotate(finalout + '/all_tophit')
 
 if __name__ == "__main__":
     main()
