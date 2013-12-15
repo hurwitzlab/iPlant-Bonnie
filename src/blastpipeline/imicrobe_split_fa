@@ -88,7 +88,7 @@ def main():
         print file_counter
         infile.close()
     fapi = FoundationApi.FoundationApi()
-    fapi.super_authenticate('imicrobe')
+    fapi.authenticate_imicrobe()
     print 'Make directory scratch/' + args.ipoutput
     results = fapi.make_directory(args.ipoutput)
     print results
@@ -108,7 +108,7 @@ def main():
                       'blastdbs': BLASTDBS,
                       'type': 'blastx', 'descriptions': '10',
                       'eval': '1', 'aln': '10',
-                      'requestedTime': '03:00:00',
+                      'requestedTime': '04:00:00',
                       'archivePath': '/imicrobe/scratch/jobs/job-' +
                       args.ipoutput + str(counter)}
         blast_job = FoundationJob.FoundationJob(fapi, 'blast-lonestar-2.2.25',
