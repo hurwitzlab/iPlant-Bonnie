@@ -108,7 +108,7 @@ def main():
                       'blastdbs': BLASTDBS,
                       'type': 'blastx', 'descriptions': '10',
                       'eval': '1', 'aln': '10',
-                      'requestedTime': '04:00:00',
+                      'requestedTime': '12:00:00',
                       'archivePath': '/imicrobe/scratch/jobs/job-' +
                       args.ipoutput + str(counter)}
         blast_job = FoundationJob.FoundationJob(fapi, 'blast-lonestar-2.2.25',
